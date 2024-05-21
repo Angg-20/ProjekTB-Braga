@@ -59,12 +59,16 @@ include "../../layout/header.php";
                     </a>
                     <div class="sb-sidenav-menu-heading">Pages</div>
 
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="/page/buku/index.php">
                         <div class="sb-nav-link-icon"><i class="fas fa-book"></i></i></div>
                         Buku
                     </a>
+                    <a class="nav-link" href="/page/penjualan/index.php">
+                        <div class="sb-nav-link-icon"><i class="fas fa-sale"></i></i></div>
+                        penjualan
+                    </a>
                     <div class="sb-sidenav-menu-heading">Setings</div>
-                    <a class="nav-link" href="page/auth/Exit.php">
+                    <a class="nav-link" href="/page/auth/Exit.php">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Log out
                     </a>
@@ -72,6 +76,8 @@ include "../../layout/header.php";
             </div>
         </nav>
     </div>
+
+
 
     <div id="layoutSidenav_content">
         <main class="mt-3">

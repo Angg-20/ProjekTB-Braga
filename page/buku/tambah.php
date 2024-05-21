@@ -94,6 +94,10 @@ include "../../layout/header.php";
                         <div class="sb-nav-link-icon"><i class="fas fa-book"></i></i></div>
                         Buku
                     </a>
+                    <a class="nav-link" href="/page/penjualan/index.php">
+                        <div class="sb-nav-link-icon"><i class="fas fa-sale"></i></i></div>
+                        penjualan
+                    </a>
                     <div class="sb-sidenav-menu-heading">Setings</div>
                     <a class="nav-link" href="/page/auth/Exit.php">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
@@ -103,6 +107,8 @@ include "../../layout/header.php";
             </div>
         </nav>
     </div>
+
+
 
     <div id="layoutSidenav_content">
 

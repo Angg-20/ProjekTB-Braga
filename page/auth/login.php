@@ -92,7 +92,7 @@ mysqli_close($db);
     <div class="login">
         <h2>Login</h2>
         <form action="" method="post">
-            <input type="text" name="username" placeholder="Username" required>
+            <input type="text" name="username" placeholder="Username" required autocomplete="off">
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit" name="login">Login</button>
             <?php if (!empty($error)) : ?>
