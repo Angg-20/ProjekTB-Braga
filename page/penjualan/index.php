@@ -7,9 +7,7 @@ if (!isset($_SESSION['user'])) {
     header("location: ../auth/login.php");
 }
 
-$cari = $_GET['query'] ?? "";
-
-$sql = "SELECT * FROM buku WHERE judul LIKE '%$cari%' OR penulis LIKE '%$cari%' OR penerbit LIKE '%$cari%' OR penulis LIKE '%$cari%' OR stok LIKE '%$cari%' limit 10";
+$sql = "SELECT * FROM buku";
 $hasil = $db->query($sql);
 
 ?>
@@ -85,13 +83,13 @@ include "../../layout/header.php";
                             <div class="card p-3">
                                 <form action="" method="">
                                     <div class="row">
-                                        <div class="col-auto">
+                                        <div class="col-auto mt-2">
                                             <label for="tanggal">Tanggal </label>
                                         </div>
                                         <div class="col-2">
                                             <input type="date" id="date" class="form-control" value="<?= date("Y-m-d"); ?>" readonly>
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col-auto mt-2">
                                             <label for="Total">Total </label>
                                         </div>
                                         <div class="col">
@@ -108,18 +106,20 @@ include "../../layout/header.php";
                                             <th scope="col">Judul</th>
                                             <th scope="col">Penerbit</th>
                                             <th scope="col">Harga</th>
+                                            <th scope="col">jumlah</th>
                                             <th scope="col">Diskon</th>
                                             <th scope="col">Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input type="number" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="number" class="form-co~ntrol"></td>
-                                            <td><input type="number" class="form-control"></td>
-                                            <td><input type="number" class="form-control"></td>
+                                            <td><input type="number" id="kode" name="kode" class="form-control"></td>
+                                            <td><input type="text" id="judul" name="judul" class="form-control"></td>
+                                            <td><input type="text" id="penerbit" name="penerbit" class="form-control"></td>
+                                            <td><input type="number" id="harga" name="harga" class="form-control"></td>
+                                            <td><input type="number" id="jumlah" name="jumlah" class="form-control"></td>
+                                            <td><input type="number" id="diskon" name="diskon" class="form-control"></td>
+                                            <td><input type="number" id="total" name="total" class="form-control"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -130,6 +130,20 @@ include "../../layout/header.php";
             </div>
         </main>
     </div>
-
 </div>
+
+<script>
+    let data_buku = <?php echo json_encode($buku); ?>
+
+    document.getElementById("kode").onkeyup = function() {
+        document.getElementById("judul").value = data_buku[this.value].judul;
+        document.getElementById("penerbit").value = data_buku[this.value].penerbit;
+        document.getElementById("harga").value = data_buku[this.value].harga_jual;
+        document.getElementById("diskon").value = data_buku[this.value].diskon;
+    }
+    document.getElementById("jumlah").onkeyup = function() {
+        document.getElementById("total").value = this.value * document.getElementById("harga").value * this.value;
+    }
+</script>
+
 <?php include "../../layout/footer.php"; ?>
