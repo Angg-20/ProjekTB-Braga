@@ -117,7 +117,7 @@ include "../../layout/header.php";
                                             <td><input type="number" class="form-control"></td>
                                             <td><input type="text" class="form-control"></td>
                                             <td><input type="text" class="form-control"></td>
-                                            <td><input type="number" class="form-control"></td>
+                                            <td><input type="number" class="form-co~ntrol"></td>
                                             <td><input type="number" class="form-control"></td>
                                             <td><input type="number" class="form-control"></td>
                                         </tr>
