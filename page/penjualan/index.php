@@ -114,12 +114,12 @@ include "../../layout/header.php";
                                     <tbody>
                                         <tr>
                                             <td><input type="number" id="kode" name="kode" class="form-control"></td>
-                                            <td><input type="text" id="judul" name="judul" class="form-control"></td>
-                                            <td><input type="text" id="penerbit" name="penerbit" class="form-control"></td>
-                                            <td><input type="number" id="harga" name="harga" class="form-control"></td>
-                                            <td><input type="number" id="jumlah" name="jumlah" class="form-control"></td>
-                                            <td><input type="number" id="diskon" name="diskon" class="form-control"></td>
-                                            <td><input type="number" id="total" name="total" class="form-control"></td>
+                                            <td><input type="text" id="judul" name="judul" class="form-control" readonly></td>
+                                            <td><input type="text" id="penerbit" name="penerbit" class="form-control" readonly></td>
+                                            <td><input type="number" id="harga" name="harga" class="form-control" readonly></td>
+                                            <td><input type="number" id="jumlah" name="jumlah" class="form-control" ></td>
+                                            <td><input type="number" id="diskon" name="diskon" class="form-control" readonly></td>
+                                            <td><input type="number" id="total" name="total" class="form-control" readonly></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -141,8 +141,9 @@ include "../../layout/header.php";
         document.getElementById("harga").value = data_buku[this.value].harga_jual;
         document.getElementById("diskon").value = data_buku[this.value].diskon;
     }
+    
     document.getElementById("jumlah").onkeyup = function() {
-        document.getElementById("total").value = this.value * document.getElementById("harga").value * this.value;
+        document.getElementById("total").value = document.getElementById("harga").value * this.value - document.getElementById("diskon").value ;
     }
 </script>
 

@@ -84,7 +84,7 @@ include "../../layout/header.php";
             <div class="container">
                 <div class="card p-3">
                     <form action="" method="GET" class="mb-3 d-flex">
-                        <input type="text" name="query" class="form-control w-25" placeholder="Search...">
+                        <input type="text" name="query" class="form-control w-25" placeholder="Search..." autocomplete="off">
                         <button type="submit" class="btn btn-primary">Search</button>
 
                         <div class="container">
@@ -109,16 +109,16 @@ include "../../layout/header.php";
                             $i = 1;
                             foreach ($hasil as $h) { ?>
                                 <tr>
-                                    <th scope="row"><?= $i++; ?></th>
-                                    <th scope="row"><?= $h['judul']; ?></th>
-                                    <th scope="row"><?= $h['penulis']; ?></th>
-                                    <th scope="row"><?= $h['penerbit']; ?></th>
-                                    <th scope="row"><?= $h['stok']; ?></th>
-                                    <th scope="row"><?= $h['harga_pokok']; ?></th>
-                                    <th scope="row" class="text-center">
+                                    <td scope="row"><?= $i++; ?></td>
+                                    <td scope="row"><?= $h['judul']; ?></td>
+                                    <td scope="row"><?= $h['penulis']; ?></td>
+                                    <td scope="row"><?= $h['penerbit']; ?></td>
+                                    <td scope="row"><?= $h['stok']; ?></td>
+                                    <td scope="row"><?= $h['harga_pokok']; ?></td>
+                                    <td scope="row" class="text-center">
                                         <a href="update.php?id=<?= $h['id_buku']; ?>" style="width: 100px;" class="btn btn-primary">edit</a>
                                         <a href="hapus.php?id=<?= $h['id_buku']; ?>" style="width: 100px;" class="btn btn-danger">hapus</a>
-                                    </th>
+                                    </td>
                                 </tr>
                             <?php } ?>
                         </tbody>
