@@ -106,24 +106,33 @@ include "../../layout/header.php";
                                             <th scope="col">Judul</th>
                                             <th scope="col">Penerbit</th>
                                             <th scope="col">Harga</th>
-                                            <th scope="col">jumlah</th>
+                                            <th scope="col">Jumlah</th>
                                             <th scope="col">Diskon</th>
                                             <th scope="col">Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input type="number" id="kode" name="kode" class="form-control"></td>
-                                            <td><input type="text" id="judul" name="judul" class="form-control" readonly></td>
-                                            <td><input type="text" id="penerbit" name="penerbit" class="form-control" readonly></td>
-                                            <td><input type="number" id="harga" name="harga" class="form-control" readonly></td>
-                                            <td><input type="number" id="jumlah" name="jumlah" class="form-control" ></td>
-                                            <td><input type="number" id="diskon" name="diskon" class="form-control" readonly></td>
-                                            <td><input type="number" id="total" name="total" class="form-control" readonly></td>
+                                    <tbody id="book-rows">
+                                        <tr class="book-row">
+                                            <td><input type="number" name="kode" class="form-control kode"></td>
+                                            <td><input type="text" name="judul" class="form-control judul" readonly></td>
+                                            <td><input type="text" name="penerbit" class="form-control penerbit" readonly></td>
+                                            <td><input type="number" name="harga" class="form-control harga" readonly></td>
+                                            <td><input type="number" name="jumlah" class="form-control jumlah" value="1"></td>
+                                            <td><input type="number" name="diskon" class="form-control diskon" readonly></td>
+                                            <td><input type="number" name="subtotal" class="form-control subtotal" readonly></td>
                                         </tr>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="6" class="text-right">Grand Total</td>
+                                            <td><input type="number" id="grand-total" class="form-control" readonly></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
+                                <button class="btn btn-primary" id="tambah">Tambah</button>
+                                <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -133,17 +142,57 @@ include "../../layout/header.php";
 </div>
 
 <script>
-    let data_buku = <?php echo json_encode($buku); ?>
+    let data_buku = <?php echo json_encode($buku); ?>;
 
-    document.getElementById("kode").onkeyup = function() {
-        document.getElementById("judul").value = data_buku[this.value].judul;
-        document.getElementById("penerbit").value = data_buku[this.value].penerbit;
-        document.getElementById("harga").value = data_buku[this.value].harga_jual;
-        document.getElementById("diskon").value = data_buku[this.value].diskon;
+    function addEventListeners(row) {
+        row.querySelector(".kode").addEventListener("input", function() {
+            let kode = this.value;
+            if (data_buku[kode]) {
+                row.querySelector(".judul").value = data_buku[kode].judul;
+                row.querySelector(".penerbit").value = data_buku[kode].penerbit;
+                row.querySelector(".harga").value = data_buku[kode].harga_jual;
+                row.querySelector(".diskon").value = data_buku[kode].diskon;
+            } else {
+                row.querySelector(".judul").value = "";
+                row.querySelector(".penerbit").value = "";
+                row.querySelector(".harga").value = "";
+                row.querySelector(".diskon").value = "";
+            }
+            updateTotal(row);
+        });
+
+        row.querySelector(".jumlah").addEventListener("input", function() {
+            updateTotal(row);
+        });
     }
-    
-    document.getElementById("jumlah").onkeyup = function() {
-        document.getElementById("total").value = document.getElementById("harga").value * this.value - document.getElementById("diskon").value ;
+
+    document.querySelectorAll(".book-row").forEach(row => addEventListeners(row));
+
+    document.getElementById("tambah").addEventListener("click", function() {
+        let newRow = document.querySelector(".book-row").cloneNode(true);
+        newRow.querySelectorAll("input").forEach(function(input) {
+            input.value = "";
+        });
+        document.getElementById("book-rows").appendChild(newRow);
+        addEventListeners(newRow);
+    });
+
+    function updateTotal(row) {
+        let harga = parseFloat(row.querySelector(".harga").value) || 0;
+        let jumlah = parseInt(row.querySelector(".jumlah").value) || 1;
+        let diskon = parseFloat(row.querySelector(".diskon").value) || 0;
+        let subtotal = (harga * jumlah) - diskon;
+        row.querySelector(".subtotal").value = subtotal.toFixed();
+        updateGrandTotal();
+    }
+
+    function updateGrandTotal() {
+        let totalElements = document.querySelectorAll('.subtotal');
+        let grandTotal = 0;
+        totalElements.forEach(function(element) {
+            grandTotal += parseFloat(element.value) || 0;
+        });
+        document.getElementById("grand-total").value = grandTotal.toFixed();
     }
 </script>
 
