@@ -13,6 +13,11 @@ $hasil = $db->query($sql);
 ?>
 
 
+<?php 
+
+
+
+?>
 
 
 <?php
@@ -80,59 +85,54 @@ include "../../layout/header.php";
                     <h5>Transaksi</h5>
                     <div class="row">
                         <div class="col">
-                            <div class="card p-3">
-                                <form action="" method="">
-                                    <div class="row">
-                                        <div class="col-auto mt-2">
-                                            <label for="tanggal">Tanggal </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <input type="date" id="date" class="form-control" value="<?= date("Y-m-d"); ?>" readonly>
-                                        </div>
-                                        <div class="col-auto mt-2">
-                                            <label for="Total">Total </label>
-                                        </div>
-                                        <div class="col">
-                                            <input type="number" id="Total" class="form-control" readonly>
+                            <form id="book-form" action="" method="post">
+                                <div class="table mt-4">
+                                    <div class="card p-3">
+                                        <div class="row">
+                                            <div class="col-auto mt-2">
+                                                <label for="tanggal">Tanggal </label>
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="date" id="date" class="form-control" value="<?= date("Y-m-d"); ?>" readonly>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="table mt-4">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Kode</th>
-                                            <th scope="col">Judul</th>
-                                            <th scope="col">Penerbit</th>
-                                            <th scope="col">Harga</th>
-                                            <th scope="col">Jumlah</th>
-                                            <th scope="col">Diskon</th>
-                                            <th scope="col">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="book-rows">
-                                        <tr class="book-row">
-                                            <td><input type="number" name="kode" class="form-control kode"></td>
-                                            <td><input type="text" name="judul" class="form-control judul" readonly></td>
-                                            <td><input type="text" name="penerbit" class="form-control penerbit" readonly></td>
-                                            <td><input type="number" name="harga" class="form-control harga" readonly></td>
-                                            <td><input type="number" name="jumlah" class="form-control jumlah" value="1"></td>
-                                            <td><input type="number" name="diskon" class="form-control diskon" readonly></td>
-                                            <td><input type="number" name="subtotal" class="form-control subtotal" readonly></td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="6" class="text-right">Grand Total</td>
-                                            <td><input type="number" id="grand-total" class="form-control" readonly></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                                <button class="btn btn-primary" id="tambah">Tambah</button>
+                                    <div class="table mt-4">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Kode</th>
+                                                    <th scope="col">Judul</th>
+                                                    <th scope="col">Penerbit</th>
+                                                    <th scope="col">Harga</th>
+                                                    <th scope="col">Jumlah</th>
+                                                    <th scope="col">Diskon</th>
+                                                    <th scope="col">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="book-rows">
+                                                <tr class="book-row">
+                                                    <td><input type="number" name="kode" class="form-control kode"></td>
+                                                    <td><input type="text" name="judul" class="form-control judul" readonly></td>
+                                                    <td><input type="text" name="penerbit" class="form-control penerbit" readonly></td>
+                                                    <td><input type="number" name="harga" class="form-control harga" readonly></td>
+                                                    <td><input type="number" name="jumlah" class="form-control jumlah" value="1"></td>
+                                                    <td><input type="number" name="diskon" class="form-control diskon" readonly></td>
+                                                    <td><input type="number" name="subtotal" class="form-control subtotal" readonly></td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="6" class="text-right">SubTotal</td>
+                                                    <td><input type="number" id="grand-total" class="form-control" readonly></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" type="button" id="tambah">Tambah</button>
                                 <button class="btn btn-primary" type="submit">Submit</button>
-                            </div>
-
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -179,7 +179,7 @@ include "../../layout/header.php";
 
     function updateTotal(row) {
         let harga = parseFloat(row.querySelector(".harga").value) || 0;
-        let jumlah = parseInt(row.querySelector(".jumlah").value) || 1;
+        let jumlah = parseInt(row.querySelector(".jumlah").value ) || 1;
         let diskon = parseFloat(row.querySelector(".diskon").value) || 0;
         let subtotal = (harga * jumlah) - diskon;
         row.querySelector(".subtotal").value = subtotal.toFixed();
